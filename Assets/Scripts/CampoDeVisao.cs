@@ -29,7 +29,7 @@ public class CampoDeVisao : MonoBehaviour
         {
             Transform Alvo = AlvosNaVisao[i].transform;
             Vector3 direcaoAlvo = (Alvo.position - transform.position).normalized;
-            if (Vector3.Angle(transform.forward, direcaoAlvo) < anguloVisao / 2)
+            if (Vector3.Angle(transform.right, direcaoAlvo) < anguloVisao / 2)
             {
                 float distanciaAlvo = Vector3.Distance(transform.position, Alvo.position);
 
@@ -63,6 +63,6 @@ public class CampoDeVisao : MonoBehaviour
             AnguloEmGraus += transform.eulerAngles.z;
         }
 
-        return new Vector3(-Mathf.Cos(AnguloEmGraus * Mathf.Deg2Rad), -Mathf.Sin(AnguloEmGraus * Mathf.Deg2Rad), 0);
+        return new Vector3(Mathf.Cos(AnguloEmGraus * Mathf.Deg2Rad), Mathf.Sin(AnguloEmGraus * Mathf.Deg2Rad), 0);
     }
 }
