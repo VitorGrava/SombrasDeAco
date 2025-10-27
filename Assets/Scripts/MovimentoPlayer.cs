@@ -25,7 +25,7 @@ public class MovimentoPlayer : MonoBehaviour
     {
         MovimentacaoPlayer();
         Pulo();
-        Debug.Log(stamina);
+       // Debug.Log(stamina);
         
         
     }
