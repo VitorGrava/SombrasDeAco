@@ -1,10 +1,9 @@
 using UnityEngine;
 
-public class Porta : MonoBehaviour, IInteractable
+public class Porta : Interactor
 {
-    public void Interact()
+    protected override void Interagir()
     {
-        Debug.Log("VC ENTROU NA PORTA");
+        Debug.Log("Porta Detectada");
     }
-        
 }

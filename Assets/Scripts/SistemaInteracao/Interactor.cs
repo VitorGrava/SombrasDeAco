@@ -1,30 +1,49 @@
 using System;
 using UnityEngine;
 
-interface IInteractable
+public abstract class Interactor : MonoBehaviour
 {
-    public void Interact();
-}
-public class Interactor : MonoBehaviour
-{
-    public Transform InteractorSource;
-    public float InteractRange;
+    [SerializeField] private float raioColisor;
+    public bool playerInteracao; 
 
-    private void Update()
+    private void Start()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {   
-            Vector3 direcao = InteractorSource.right;
-            if 
-            Ray r = new Ray(InteractorSource.position, direcao);
-            if (Physics.Raycast(r, out RaycastHit hitInfo, InteractRange))
-            {
-                if (hitInfo.collider.gameObject.TryGetComponent(out IInteractable interactObj))
-                {
-                    interactObj.Interact();
-                }
-            }
+        ColisorConfig();
+    }   
+ 
+    private void ColisorConfig()
+    {
+        SphereCollider colisor = gameObject.AddComponent<SphereCollider>();
+        colisor.radius = raioColisor;
+        colisor.isTrigger = true;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerInteracao = true;
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (Input.GetKeyDown(KeyCode.E) && playerInteracao == true)
+        {
+            Interagir();
+        }
+        
+    
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerInteracao = false;
         }
     }
     
+    protected abstract void Interagir();
+
 }    
