@@ -9,12 +9,12 @@ public class GerenciadorEstadoJogador : MonoBehaviour
 
     private void Awake()
     {
-        if (Instancia == null && Instancia != this)
+        if (Instancia != null && Instancia != this)
         {
             Destroy(gameObject);
             return;
         }
-        
+
         Instancia = this;
         DontDestroyOnLoad(gameObject);
     }

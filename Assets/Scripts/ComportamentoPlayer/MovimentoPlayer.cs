@@ -64,12 +64,17 @@ public class MovimentoPlayer : MonoBehaviour
    // FixedUpdate é a função ideal para movimentação via física (Rigidbody)
    void FixedUpdate()
    {
-       MovimentacaoPlayer();
-       AtualizarEstadoMovimento();
-       DelayRecuperacao();         
-       ControleStamina();          
-       Pulo();
-       Debug.Log(stamina);
+       if (!GerenciadorEstadoJogador.Instancia.EstaEscondido())
+       {
+           MovimentacaoPlayer();
+           AtualizarEstadoMovimento();
+           DelayRecuperacao();         
+           ControleStamina();          
+           Pulo();
+           Debug.Log(stamina);
+       }
+
+       
       
    }
 

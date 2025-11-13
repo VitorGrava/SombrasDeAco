@@ -49,7 +49,10 @@ public class MovimentoInimigo : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (campoDeVisao.playerInSight)
+        if (GerenciadorEstadoJogador.Instancia.EstaEscondido())
+        {
+            MovimentarPatrulha();
+        }else if (campoDeVisao.playerInSight)
         {
             SeguirPlayer();
         }
