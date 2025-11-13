@@ -74,6 +74,7 @@ public class CampoDeVisao : MonoBehaviour
                 // Raycast até o jogador para checar obstáculos
                 if (!Physics.Raycast(eyePosition.position, directionToPlayer, distToPlayer, obstacleLayer))
                 {
+                    
                     // O jogador foi visto!
                     playerInSight = true;
                     Debug.Log(playerInSight);
