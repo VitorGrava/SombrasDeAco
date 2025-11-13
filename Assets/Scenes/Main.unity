@@ -623,6 +623,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1820288646}
+  LimiteMapaEsquerda: {fileID: 0}
+  LimiteMapaDireita: {fileID: 0}
+  velocidadeSuavizada: 0.125
+  CameraOffSet: 0
 --- !u!1001 &363039299
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1066,6 +1070,7 @@ MonoBehaviour:
   velocidadeRotacao: 15
   forcaPulo: 4
   noChao: 0
+  tempoDelayRecuperacao: 5
 --- !u!4 &1820288646 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7af8dd9b6f02a384f8802a7bc056abbb, type: 3}
@@ -1105,6 +1110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   raioColisor: 2
   playerInteracao: 1
+  player: {fileID: 0}
 --- !u!65 &1941455342
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1270,6 +1276,28 @@ MonoBehaviour:
   velocidadeRotacao: 5
   suavizacaoMovimento: 0.5
   player: {fileID: 1820288646}
+--- !u!95 &1965460758
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 8
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965460749}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2137129668
 GameObject:
   m_ObjectHideFlags: 0

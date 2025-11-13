@@ -4,9 +4,10 @@ using UnityEngine;
 public abstract class Interactor : MonoBehaviour
 {
     [SerializeField] private float raioColisor;
-    public bool playerInteracao; 
+    public bool playerPodeInteragir;
+    public bool playerInteragiu = false;
 
-    private void Start()
+    protected virtual void Start()
     {
         ColisorConfig();
     }   
@@ -22,13 +23,21 @@ public abstract class Interactor : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            playerInteracao = true;
+            playerPodeInteragir = true;
         }
     }
+    
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerExit(Collider other)
     {
-        if (Input.GetKeyDown(KeyCode.E) && playerInteracao == true)
+        if (other.CompareTag("Player"))
+        {
+            playerPodeInteragir = false;
+        }
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.E) && playerPodeInteragir == true)
         {
             Interagir();
         }
@@ -36,14 +45,13 @@ public abstract class Interactor : MonoBehaviour
     
     }
 
-    private void OnTriggerExit(Collider other)
+
+    public void SetRaioColisor(float raio)
     {
-        if (other.CompareTag("Player"))
-        {
-            playerInteracao = false;
-        }
+        raioColisor = raio;
     }
-    
+
+
     protected abstract void Interagir();
 
 }    
