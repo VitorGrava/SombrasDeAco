@@ -27,6 +27,8 @@ public class CampoDeVisao : MonoBehaviour
     [Header("Estado")] public bool playerInSight;
 
     private Transform playerTransform;
+    
+
 
     void Start()
     {
