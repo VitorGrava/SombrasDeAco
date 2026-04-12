@@ -1,10 +1,10 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GerenciadorEstadoJogador : MonoBehaviour
 {
-    
-    public static GerenciadorEstadoJogador Instancia {get; private set; }
-    
+    public static GerenciadorEstadoJogador Instancia { get; private set; }
+
     private bool estaEscondido = false;
 
     private void Awake()
@@ -17,11 +17,26 @@ public class GerenciadorEstadoJogador : MonoBehaviour
 
         Instancia = this;
         DontDestroyOnLoad(gameObject);
+
+        // ← escuta toda vez que uma cena nova carrega
+        SceneManager.sceneLoaded += OnCenaCarregada;
     }
 
-    public void SetEscondido(bool Estado)
+    private void OnDestroy()
     {
-        estaEscondido = Estado;
+        // ← boa prática: remove o listener ao destruir
+        SceneManager.sceneLoaded -= OnCenaCarregada;
+    }
+
+    private void OnCenaCarregada(Scene cena, LoadSceneMode modo)
+    {
+        // ← reseta o estado sempre que uma cena nova começa
+        estaEscondido = false;
+    }
+
+    public void SetEscondido(bool estado)
+    {
+        estaEscondido = estado;
     }
 
     public bool EstaEscondido()

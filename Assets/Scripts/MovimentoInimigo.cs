@@ -5,20 +5,12 @@ using UnityEngine;
 public class MovimentoInimigo : MonoBehaviour
 {
     [Header("Parâmetros de Patrulha")]
-    [Tooltip("Velocidade máxima de movimento do inimigo.")]
     public float velocidadePatrulha = 3f;
-
-    [Tooltip("Velocidade de perseguição do inimigo.")]
-    public float velocidadeSeguir;
-
-    [Tooltip("Distância total percorrida entre os pontos de patrulha.")]
+    public float velocidadeSeguir = 5f;
     public float distanciaPatrulha = 5f;
-
-    [Tooltip("Velocidade de rotação do inimigo (suavizada).")]
     public float velocidadeRotacao = 5f;
 
     [Header("Humanização do Movimento")]
-    [Tooltip("Tempo de suavização do movimento (maior = mais inércia).")]
     public float suavizacaoMovimento = 0.5f;
 
     [Header("Referências")]
@@ -28,31 +20,57 @@ public class MovimentoInimigo : MonoBehaviour
     private Animator animator;
     private CampoDeVisao campoDeVisao;
 
-    // Controle de movimento
+    // Movimento
     private Vector3 pontoInicial;
     private float direcaoMovimento = 1f;
 
-    // Controle de rotação
+    // Rotação
     private float rotacaoAlvoY;
 
-    // Controle de suavização
+    // Suavização do movimento
     private float velocidadeAtualX = 0f;
     private float velocidadeRefX = 0f;
-   
+
 
     void Start()
     {
-        InicializarComponentes();
+        rb = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
+        campoDeVisao = GetComponentInChildren<CampoDeVisao>();
+
+        pontoInicial = transform.position;
+
         ConfigurarRigidbody();
         EncontrarPlayer();
     }
+
+    private void ConfigurarRigidbody()
+    {
+        rb.constraints = RigidbodyConstraints.FreezeRotationX |
+                         RigidbodyConstraints.FreezeRotationZ |
+                         RigidbodyConstraints.FreezePositionY|
+                         RigidbodyConstraints.FreezePositionZ;
+
+        rb.interpolation = RigidbodyInterpolation.Interpolate;
+        rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+    }
+
+    private void EncontrarPlayer()
+    {
+        if (player != null) return;
+
+        GameObject obj = GameObject.FindGameObjectWithTag("Player");
+        if (obj != null) player = obj.transform;
+    }
+
 
     void FixedUpdate()
     {
         if (GerenciadorEstadoJogador.Instancia.EstaEscondido())
         {
             MovimentarPatrulha();
-        }else if (campoDeVisao.playerInSight)
+        }
+        else if (campoDeVisao.playerInSight)
         {
             SeguirPlayer();
         }
@@ -60,70 +78,33 @@ public class MovimentoInimigo : MonoBehaviour
         {
             MovimentarPatrulha();
         }
-        
+
         AtualizarRotacao();
     }
 
-    // =========================
-    // == MÉTODOS DE INICIALIZAÇÃO ==
-    // =========================
-
-    private void InicializarComponentes()
-    {
-        rb = GetComponent<Rigidbody>();
-        animator = GetComponent<Animator>();
-        campoDeVisao = GetComponentInChildren<CampoDeVisao>();
-        pontoInicial = transform.position;
-    }
-
-    private void ConfigurarRigidbody()
-    {
-        if (rb == null) return;
-
-        rb.constraints = RigidbodyConstraints.FreezeRotationX |
-                         RigidbodyConstraints.FreezeRotationZ |
-                         RigidbodyConstraints.FreezePositionY |
-                         RigidbodyConstraints.FreezePositionZ;
-}
-
-    private void EncontrarPlayer()
-    {
-        if (player != null) return;
-
-        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-        if (playerObj != null)
-        {
-            player = playerObj.transform;
-        }
-        else
-        {
-            Debug.LogError("[MovimentoInimigo] Objeto com tag 'Player' não encontrado.");
-        }
-    }
-
-    // =========================
-    // == MOVIMENTAÇÃO ==
-    // =========================
-
+    // ============================================================
+    //  MOVIMENTO DE PATRULHA
+    // ============================================================
     private void MovimentarPatrulha()
     {
-        float limiteEsquerdo = pontoInicial.x - (distanciaPatrulha / 2f);
-        float limiteDireito = pontoInicial.x + (distanciaPatrulha / 2f);
+        float limiteEsq = pontoInicial.x - (distanciaPatrulha / 2f);
+        float limiteDir = pontoInicial.x + (distanciaPatrulha / 2f);
 
-        // Muda a direção ao atingir os limites
-        if (transform.position.x >= limiteDireito && direcaoMovimento > 0)
+        // Inverte a direção quando chega nos limites
+        if (transform.position.x >= limiteDir && direcaoMovimento > 0)
         {
             direcaoMovimento = -1f;
-            rotacaoAlvoY = 0f;
+            rotacaoAlvoY = 270f;
         }
-        else if (transform.position.x <= limiteEsquerdo && direcaoMovimento < 0)
+        else if (transform.position.x <= limiteEsq && direcaoMovimento < 0)
         {
             direcaoMovimento = 1f;
-            rotacaoAlvoY = 180f;
+            rotacaoAlvoY = 90f;
         }
 
-        // Calcula velocidade suavizada (inércia)
+        // Suavização
         float velocidadeAlvoX = direcaoMovimento * velocidadePatrulha;
+
         velocidadeAtualX = Mathf.SmoothDamp(
             velocidadeAtualX,
             velocidadeAlvoX,
@@ -131,45 +112,51 @@ public class MovimentoInimigo : MonoBehaviour
             suavizacaoMovimento
         );
 
-        // Aplica movimento
-        Vector3 movimento = new Vector3(velocidadeAtualX, 0f, 0f);
-        rb.MovePosition(rb.position + movimento * Time.fixedDeltaTime);
+        // Movimento horizontal (NÃO mexe no Y)
+        Vector3 novaPos = rb.position;
+        novaPos.x += velocidadeAtualX * Time.fixedDeltaTime;
+        novaPos.y = rb.position.y;
 
-        //AtualizarAnimacao();
+        rb.MovePosition(novaPos);
+        
     }
 
-    // =========================
-    // == ROTAÇÃO ==
-    // =========================
+    // ============================================================
+    //  PERSEGUIR PLAYER
+    // ============================================================
+    private void SeguirPlayer()
+    {
+        Vector3 dir = (player.position - transform.position);
+        dir.y = 0;
+        dir.Normalize();
 
+        rotacaoAlvoY = Quaternion.LookRotation(dir).eulerAngles.y;
+
+        Vector3 novaPos = rb.position;
+        novaPos += dir * velocidadeSeguir * Time.fixedDeltaTime;
+        novaPos.y = rb.position.y;
+
+        rb.MovePosition(novaPos);
+
+      
+    }
+
+    // ============================================================
+    //  ROTAÇÃO
+    // ============================================================
     private void AtualizarRotacao()
     {
-        float yAtual = transform.eulerAngles.y;
-        float yNovo = Mathf.LerpAngle(yAtual, rotacaoAlvoY, velocidadeRotacao * Time.fixedDeltaTime);
+        float yNovo = Mathf.LerpAngle(
+            transform.eulerAngles.y,
+            rotacaoAlvoY,
+            velocidadeRotacao * Time.fixedDeltaTime
+        );
+
         transform.eulerAngles = new Vector3(0f, yNovo, 0f);
     }
 
-    // =========================
-    // == ANIMAÇÃO ==
-    // =========================
-
-    // private void AtualizarAnimacao()
-    // {
-    //     if (animator == null) return;
-    //
-    //     bool estaAndando = Mathf.Abs(velocidadeAtualX) > 0.1f;
-    //     animator.SetBool("IsMoving", estaAndando);
-    //     animator.SetBool("IsCrouching", false);
-    // }
-
-    // =========================
-    // == FUTURO: SEGUIR PLAYER ==
-    // =========================
-
-    private void SeguirPlayer()
-    {
-        Vector3 direcaoPlayer = player.position - transform.position;
-        direcaoPlayer.Normalize();
-        transform.position += direcaoPlayer * velocidadeSeguir * Time.deltaTime;
-    }
+    // ============================================================
+    //  ANIMAÇÃO
+    // ============================================================
+    
 }
