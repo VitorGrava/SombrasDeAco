@@ -1,88 +1,80 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections; 
+using System.Collections;
+
 public class ControleStamina : MonoBehaviour
 {
-    [Header("Paramentros da Stamina")]
+    [Header("Parâmetros da Stamina")]
     public float stamina = 100f;
-    [SerializeField]private float staminaMax = 100f;
-    [SerializeField]public bool estaCorrendo = false;
+    [SerializeField] private float staminaMax = 100f;
+    public bool estaCorrendo = false;
 
-    [Header("Parametos de Recuperação de Stamina")] 
-    [Range(0, 50)][SerializeField]private float taxaConsumo = 0.5f; 
-    [Range(0, 50)][SerializeField]private float taxaRegeneracao = 0.5f;
+    [Header("Parâmetros de Recuperação de Stamina")]
+    [Range(0, 50)][SerializeField] private float taxaConsumo = 0.5f;
+    [Range(0, 50)][SerializeField] private float taxaRegeneracao = 0.5f;
 
     [Header("Elementos da UI Stamina")]
-    [SerializeField]private Image progressoStaminaUI = null;
-    [SerializeField]private CanvasGroup sliderCanvasGroup = null;
+    [SerializeField] private Image progressoStaminaUI = null;
+    [SerializeField] private CanvasGroup sliderCanvasGroup = null;
 
     [SerializeField] private float delayRegeneracao = 2f;
-    private bool podeRegenerar = true;
 
-    private PlayerController playerController;
+    // ← controla se a coroutine já está rodando
+    private bool coroutineRodando = false;
 
-    private void Start()
+    void Update()
     {
-        playerController = GetComponent<PlayerController>();
-       
+        if (!estaCorrendo)
+            TentarRegenerar();
     }
 
-    private IEnumerator IniciarRegeneracao()
+    private void TentarRegenerar()
     {
-        yield return new WaitForSeconds(delayRegeneracao);
-
-        estaCorrendo = false;
-        podeRegenerar = true;
-    }
-    private void Update()
-    {
-        if (!estaCorrendo && podeRegenerar)
+        if (stamina >= staminaMax)
         {
-            if (stamina < staminaMax)
-            {
-                stamina += taxaRegeneracao * Time.deltaTime;
-                stamina = Mathf.Clamp(stamina, 0, staminaMax); // ADICIONADO: impede stamina negativa/maior que o máximo
-
-                UpdateStamina(1);
-
-                if (stamina >= staminaMax)
-                    sliderCanvasGroup.alpha = 0; // ALTERADO: simplificado
-            }
+            sliderCanvasGroup.alpha = 0;
+            return;
         }
+
+        // ← só regenera se a coroutine de delay já terminou
+        if (coroutineRodando) return;
+
+        stamina += taxaRegeneracao * Time.deltaTime;
+        stamina = Mathf.Clamp(stamina, 0, staminaMax);
+        AtualizarUI();
     }
 
     public void Correndo()
     {
-        if (stamina > 0)
-        {
-            estaCorrendo = true;
-            podeRegenerar = false;
+        if (stamina <= 0) return;
 
-            stamina -= taxaConsumo * Time.deltaTime;
-            stamina = Mathf.Clamp(stamina, 0, staminaMax); // ADICIONADO: impede valores negativos
+        estaCorrendo = true;
 
-            UpdateStamina(1);
-            
-            StopCoroutine("IniciarRegeneracao");
-            StartCoroutine("IniciarRegeneracao");
-            
-        }
+        stamina -= taxaConsumo * Time.deltaTime;
+        stamina = Mathf.Clamp(stamina, 0, staminaMax);
+        AtualizarUI();
+
+        // ← só inicia a coroutine se ela não estiver rodando
+        if (!coroutineRodando)
+            StartCoroutine(DelayRegeneracao());
     }
 
-    void UpdateStamina(int value)
+    private IEnumerator DelayRegeneracao()
+    {
+        coroutineRodando = true;
+
+        // ← fica renovando o delay enquanto ainda estiver correndo
+        while (estaCorrendo)
+            yield return null;
+
+        yield return new WaitForSeconds(delayRegeneracao);
+        coroutineRodando = false;
+        estaCorrendo = false;
+    }
+
+    private void AtualizarUI()
     {
         progressoStaminaUI.fillAmount = stamina / staminaMax;
-
-        if (value == 0)
-        {
-            sliderCanvasGroup.alpha = 0;
-        }
-        else
-        {
-            sliderCanvasGroup.alpha = 1;
-        }
+        sliderCanvasGroup.alpha = 1;
     }
-
-
 }

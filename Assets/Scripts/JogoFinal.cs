@@ -1,24 +1,17 @@
-using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
 public class JogoFinal : MonoBehaviour
 {
-    private bool JogadorColidiu = false;
-    
+    private bool jogadorColidiu = false;
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") && !jogadorColidiu)
         {
-            JogadorColidiu = true;
+            jogadorColidiu = true;
+            FimDoJogo();        // ← chama direto aqui, uma única vez
         }
-    }
-
-    void Update()
-    {
-        if(JogadorColidiu)
-        {
-            FimDoJogo();    
-        }       
     }
 
     private void FimDoJogo()

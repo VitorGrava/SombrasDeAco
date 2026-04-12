@@ -1,6 +1,4 @@
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class PlayerController : MonoBehaviour
 {
@@ -18,19 +16,22 @@ public class PlayerController : MonoBehaviour
     public bool noChao;
 
     // ---- MELHORIAS DO PULO ----
-    public float coyoteTime = 0.15f;       // Tempo extra de pulo após sair do chão
-    public float jumpBufferTime = 0.01f;   // Tempo de buffer para o botão de pulo
+    public float coyoteTime = 0.15f;
+    public float jumpBufferTime = 0.15f;   // ← era 0.01f, muito pequeno
+
+    // Multiplicadores de queda (sensação de peso)
+    public float gravityMultiplier = 2.5f;     // cai mais rápido
+    public float lowJumpMultiplier = 2.0f;     // pulo curto ao soltar cedo
 
     private float coyoteCounter;
     private float jumpBufferCounter;
     // ----------------------------
 
-    private float moveX; 
+    private float moveX;
 
     public enum EstadoMovimento { Andando, Agachando, Correndo }
     private EstadoMovimento estadoAtual;
 
-    // Componentes
     private Animator animator;
     private Rigidbody rb;
     private Vector3 posicaoAtual;
@@ -49,6 +50,16 @@ public class PlayerController : MonoBehaviour
         velocidadeCorrendo = velocidade;
     }
 
+    // ─────────────────────────────────────────
+    //  Update: APENAS leitura de input do pulo
+    //  GetButtonDown é confiável só no Update!
+    // ─────────────────────────────────────────
+    void Update()
+    {
+        if (Input.GetButtonDown("Jump"))
+            jumpBufferCounter = jumpBufferTime;
+    }
+
     void FixedUpdate()
     {
         if (!GerenciadorEstadoJogador.Instancia.EstaEscondido())
@@ -56,6 +67,7 @@ public class PlayerController : MonoBehaviour
             MovimentacaoPlayer();
             AtualizarEstadoMovimento();
             Pulo();
+            AplicarGravidade();
         }
     }
 
@@ -93,11 +105,9 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
         {
-            if (controleStamina.stamina > 0)
-                estadoAtual = EstadoMovimento.Correndo;
-            else
-                estadoAtual = EstadoMovimento.Andando;
-
+            estadoAtual = controleStamina.stamina > 0
+                ? EstadoMovimento.Correndo
+                : EstadoMovimento.Andando;
             return;
         }
 
@@ -110,24 +120,22 @@ public class PlayerController : MonoBehaviour
         estadoAtual = EstadoMovimento.Andando;
     }
 
-    // -----------------------------
-    //   SISTEMA DE PULO MELHORADO
-    // -----------------------------
+    // ─────────────────────────────────────────
+    //  SISTEMA DE PULO
+    //  jumpBufferCounter já vem do Update()
+    // ─────────────────────────────────────────
     void Pulo()
     {
-        // BUFFER DO PULO
-        if (Input.GetButtonDown("Jump"))
-            jumpBufferCounter = jumpBufferTime;
-        else
-            jumpBufferCounter -= Time.fixedDeltaTime;
+        // Decrementa o buffer aqui (não lê GetButtonDown aqui!)
+        jumpBufferCounter -= Time.fixedDeltaTime;
 
-        // COYOTE TIME
+        // Coyote time
         if (noChao)
             coyoteCounter = coyoteTime;
         else
             coyoteCounter -= Time.fixedDeltaTime;
 
-        // EXECUTA O PULO
+        // Executa o pulo
         if (jumpBufferCounter > 0 && coyoteCounter > 0)
         {
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, 0f);
@@ -135,6 +143,24 @@ public class PlayerController : MonoBehaviour
 
             jumpBufferCounter = 0;
             coyoteCounter = 0;
+        }
+    }
+
+    // ─────────────────────────────────────────
+    //  GRAVIDADE MELHORADA
+    //  Cai pesado; pulo curto ao soltar cedo
+    // ─────────────────────────────────────────
+    void AplicarGravidade()
+    {
+        if (rb.linearVelocity.y < 0)
+        {
+            // Caindo — aplica multiplicador de queda
+            rb.AddForce(Vector3.up * Physics.gravity.y * (gravityMultiplier - 1f) * rb.mass * Time.fixedDeltaTime, ForceMode.Force);
+        }
+        else if (rb.linearVelocity.y > 0 && !Input.GetButton("Jump"))
+        {
+            // Subindo, mas o jogador soltou o botão → pulo mais curto
+            rb.AddForce(Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1f) * rb.mass * Time.fixedDeltaTime, ForceMode.Force);
         }
     }
 
@@ -157,7 +183,6 @@ public class PlayerController : MonoBehaviour
 
         float yAtual = transform.eulerAngles.y;
         float yNovo = Mathf.LerpAngle(yAtual, RotYLoc, velocidadeRotacao * Time.deltaTime);
-
         transform.eulerAngles = new Vector3(0f, yNovo, 0f);
     }
 }

@@ -25,7 +25,7 @@ public class Bala : MonoBehaviour
         Vector3 direcao = (player.position - transform.position).normalized;
 
         // Move a bala usando velocidade e física
-        rb.velocity = direcao * velocidade;
+        rb.linearVelocity = direcao * velocidade;
     }
 
     private void OnTriggerEnter(Collider other)
