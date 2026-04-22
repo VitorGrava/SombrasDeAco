@@ -725,10 +725,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 998874412}
-  LimiteMapaEsquerda: {fileID: 1169833578}
-  LimiteMapaDireita: {fileID: 1519612485}
-  velocidadeSuavizada: 0.125
-  CameraOffSet: 1
+  limiteEsquerda: {fileID: 0}
+  limiteDireita: {fileID: 0}
+  suavizacaoX: 0.15
+  suavizacaoY: 0.2
+  distanciaLookAhead: 2.5
+  suavizacaoLookAhead: 0.3
+  deadZoneX: 0.5
+  usarDeadZone: 1
+  seguirY: 0
+  offsetY: 0
+  offsetX: 0
 --- !u!1 &998874411 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 8c1db20fc72072b48994833f342abfbf, type: 3}
@@ -855,27 +862,27 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 8d2486d527f2f424981faf3c3e3956ca, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2
+      value: 1.16916
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8d2486d527f2f424981faf3c3e3956ca, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2
+      value: 1.16916
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8d2486d527f2f424981faf3c3e3956ca, type: 3}
       propertyPath: m_LocalScale.z
-      value: 2
+      value: 1.16916
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8d2486d527f2f424981faf3c3e3956ca, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 28.046263
+      value: 28.02
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8d2486d527f2f424981faf3c3e3956ca, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.5236056
+      value: -0.48
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8d2486d527f2f424981faf3c3e3956ca, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -14.03065
+      value: -14.3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8d2486d527f2f424981faf3c3e3956ca, type: 3}
       propertyPath: m_LocalRotation.w
@@ -920,7 +927,10 @@ PrefabInstance:
       addedObject: {fileID: 1573813609}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8d2486d527f2f424981faf3c3e3956ca, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1573813611}
+      addedObject: {fileID: 1573813614}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8d2486d527f2f424981faf3c3e3956ca, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1573813616}
   m_SourcePrefab: {fileID: 100100000, guid: 8d2486d527f2f424981faf3c3e3956ca, type: 3}
 --- !u!1 &1169833576
 GameObject:
@@ -1617,25 +1627,43 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BossScript
   camdachao:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
   velocidadeMovimento: 5
   distanciaPatrulha: 3
---- !u!50 &1573813611
-Rigidbody2D:
-  serializedVersion: 5
+--- !u!54 &1573813614
+Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1573813608}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
+  serializedVersion: 5
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 0
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &1573813616
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1573813608}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -1643,10 +1671,13 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.6950858, y: 0.399308, z: 0.7077404}
+  m_Center: {x: 0.15245707, y: -0.30034584, z: -0.14612979}
 --- !u!1 &1609096204
 GameObject:
   m_ObjectHideFlags: 0

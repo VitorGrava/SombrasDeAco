@@ -1,27 +1,28 @@
 using UnityEngine;
-
 public class BossScript : MonoBehaviour
 {
     public LayerMask camdachao;
-
-    public float velocidadeMovimento = 5f;
-    public float distanciaPatrulha = 3f; // O quanto ele se afasta do centro
-
+    public float velocidadeMovimento =6f;
+    public float distanciaPatrulha = 20f;
     private float posicaoXInicial;
+    private Rigidbody rb;
 
     void Start()
     {
-        // Salva a posição X de onde o Boss começou
         posicaoXInicial = transform.position.x;
+        rb = GetComponent<Rigidbody>();
     }
 
-    void Update()
+    void FixedUpdate() // era Update
     {
-        // O Seno cria um valor que vai de -1 a 1 repetidamente
-        // Multiplicamos pela distanciaPatrulha para definir o alcance
         float deslocamentoX = Mathf.Sin(Time.time * velocidadeMovimento) * distanciaPatrulha;
 
-        // Atualiza a posição apenas no eixo X, mantendo o Y e Z originais
-        transform.position = new Vector3(posicaoXInicial + deslocamentoX, transform.position.y, transform.position.z);
+        Vector3 novaPosicao = new Vector3(
+            posicaoXInicial + deslocamentoX,
+            rb.position.y, // Y controlado pela física
+            rb.position.z
+        );
+
+        rb.MovePosition(novaPosicao); // respeita a física
     }
 }
