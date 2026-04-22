@@ -92,13 +92,24 @@ public class PlayerController : MonoBehaviour
             case EstadoMovimento.Correndo:
                 rb.MovePosition(rb.position + posicaoAtual * velocidadeCorrendo * Time.fixedDeltaTime);
                 animator.SetBool("IsCrouching", false);
-                controleStamina.estaCorrendo = true;
-                controleStamina.Correndo();
+
+                // Só consome stamina se estiver se movendo
+                if (moveX != 0)
+                {
+                    controleStamina.estaCorrendo = true;
+                    controleStamina.Correndo();
+                }
+                else
+                {
+                    controleStamina.estaCorrendo = false;
+                }
                 break;
         }
 
+
         Rotacao(moveX);
         animator.SetBool("IsMoving", moveX != 0);
+
     }
 
     void AtualizarEstadoMovimento()

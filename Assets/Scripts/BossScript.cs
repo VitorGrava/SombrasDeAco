@@ -1,22 +1,28 @@
-using UnityEditor.Timeline.Actions;
 using UnityEngine;
-
 public class BossScript : MonoBehaviour
 {
     public LayerMask camdachao;
-    
-    public float velocidadeMoviumento = 5f;
-    
+    public float velocidadeMovimento =6f;
+    public float distanciaPatrulha = 20f;
+    private float posicaoXInicial;
+    private Rigidbody rb;
+
     void Start()
     {
-        
+        posicaoXInicial = transform.position.x;
+        rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate() // era Update
     {
-        transform.position += Vector3.right * velocidadeMoviumento * Time.deltaTime;  
-    }
+        float deslocamentoX = Mathf.Sin(Time.time * velocidadeMovimento) * distanciaPatrulha;
 
-    
+        Vector3 novaPosicao = new Vector3(
+            posicaoXInicial + deslocamentoX,
+            rb.position.y, // Y controlado pela física
+            rb.position.z
+        );
+
+        rb.MovePosition(novaPosicao); // respeita a física
+    }
 }
