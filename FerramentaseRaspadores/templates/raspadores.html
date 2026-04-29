@@ -1,0 +1,53 @@
+<div class="cards-grid">
+    <div class="card card-bi" onclick="toggleCard(event, this)">
+        <p class="card-bi-titulo">Certidões (xls, xlsx)</p>
+        <div class="card-conteudo" ondragover="arrastandoSobre(event, this)"
+                                   ondragleave="arrastandoFora(event, this)"
+                                   ondrop="soltouArquivo(event, this)">
+            <p>Arraste e Solte a planilha, ou clique no botão para selecionar</p>
+            <button type="button" class="remover-arquivo d-none" onclick="removerArquivo(event, this)">×</button>
+
+            <input type="file" class="input-arquivo" accept=".xls, .xlsx" hidden>
+            <button class="botao-acao" onclick="abrirArquivo(event, this)">Anexar</button>
+        </div>
+    </div>
+
+    <div class="card card-bi" onclick="toggleCard(event, this)">
+        <p class="card-bi-titulo">Econodata (xls, xlsx)</p>
+        <div class="card-conteudo" ondragover="arrastandoSobre(event, this)"
+                                   ondragleave="arrastandoFora(event, this)"
+                                   ondrop="soltouArquivo(event, this)">
+            <p>Arraste e Solte a planilha, ou clique no botão para selecionar</p>
+            <button type="button" class="remover-arquivo d-none" onclick="removerArquivo(event, this)">×</button>
+
+            <input type="file" class="input-arquivo" accept=".xls, .xlsx" hidden>
+            <button class="botao-acao" onclick="abrirArquivo(event, this)">Anexar</button>
+        </div>
+    </div>
+
+    <div class="card card-bi" onclick="toggleCard(event, this)">
+        <p class="card-bi-titulo">PAT (xls, xlsx)</p>
+        <div class="card-conteudo" ondragover="arrastandoSobre(event, this)"
+                                   ondragleave="arrastandoFora(event, this)"
+                                   ondrop="soltouArquivo(event, this)">
+            <p>Arraste e Solte a planilha, ou clique no botão para selecionar</p>
+            <button type="button" class="remover-arquivo d-none" onclick="removerArquivo(event, this)">×</button>
+
+            <input type="file" class="input-arquivo" accept=".xls, .xlsx" hidden>
+            <button class="botao-acao" onclick="abrirArquivo(event, this)">Anexar</button>
+        </div>
+    </div>
+
+    <div class="card card-bi" onclick="toggleCard(event, this)">
+        <p class="card-bi-titulo">Jucesp (xls, xlsx)</p>
+        <div class="card-conteudo" ondragover="arrastandoSobre(event, this)"
+                                   ondragleave="arrastandoFora(event, this)"
+                                   ondrop="soltouArquivo(event, this)">
+            <p>Arraste e Solte a planilha, ou clique no botão para selecionar</p>
+            <button type="button" class="remover-arquivo d-none" onclick="removerArquivo(event, this)">×</button>
+
+            <input type="file" class="input-arquivo" accept=".xls, .xlsx" hidden>
+            <button class="botao-acao" onclick="abrirArquivo(event, this)">Anexar</button>
+        </div>
+    </div>
+</div>
