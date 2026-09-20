@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 3
   tags:
   - Pulavel
+  - Inimigo
+  - LimiteMundo
+  - LimitePatrulhaSniper
   layers:
   - Default
   - TransparentFX
@@ -14,8 +17,8 @@ TagManager:
   - UI
   - Player
   - Obstaculos
-  - 
-  - 
+  - Objetos Interacao
+  - LimitePatrulhaSniper
   - 
   - 
   - 

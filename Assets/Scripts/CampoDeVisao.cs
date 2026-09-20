@@ -1,68 +1,111 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
-using System.Collections;
-
+﻿using UnityEngine;
 
 public class CampoDeVisao : MonoBehaviour
 {
-    public float raioVisao;
-    [Range(0, 360)] 
-    public float anguloVisao;
-    
-    public LayerMask layerMaskAlvo;
-    public LayerMask layerMaskObstaculo;
-    
-    [HideInInspector]
-    public List<Transform> alvosVisiveis = new List<Transform>();
+    [Header("Configuração do Campo de Visão")]
+    [Tooltip("Raio máximo de detecção do jogador")]
+    public float viewRadius = 5f;
+
+    [Tooltip("Ângulo de abertura do campo de visão (em graus)")]
+    [Range(0, 360)]
+    public float viewAngle = 120f;
+
+    [Header("Camadas")]
+    [Tooltip("Layer(s) identificando o jogador")]
+    public LayerMask playerLayer;
+
+    [Tooltip("Layer(s) de obstáculos (paredes, plataformas, etc)")]
+    public LayerMask obstacleLayer;
+
+    [Header("Referências")]
+    [Tooltip("Transform do inimigo ou ponto central do campo de visão")]
+    public Transform eyePosition;
+
+    [Tooltip("Tempo entre as checagens de FOV (segundos)")]
+    public float checkInterval = 0.2f;
+
+    [Header("Estado")]
+    public bool playerInSight;
+
+    private Transform playerTransform;
 
     void Start()
     {
-        StartCoroutine("FOVRoutine");
+        if (eyePosition == null)
+            eyePosition = this.transform;
+
+        StartCoroutine(FOVCoroutine());
     }
 
-    public bool AcharAlvosVisiveis()
-    {   
-        alvosVisiveis.Clear();
-        Collider[] AlvosNaVisao = Physics.OverlapSphere(transform.position, raioVisao, layerMaskAlvo);
-        for (int i = 0; i < AlvosNaVisao.Length; i++)
+    System.Collections.IEnumerator FOVCoroutine()
+    {
+        while (true)
         {
-            Transform Alvo = AlvosNaVisao[i].transform;
-            Vector3 direcaoAlvo = (Alvo.position - transform.position).normalized;
-            if (Vector3.Angle(transform.forward, direcaoAlvo) < anguloVisao / 2)
-            {
-                float distanciaAlvo = Vector3.Distance(transform.position, Alvo.position);
+            yield return new WaitForSeconds(checkInterval);
+            FOVCheck();
+        }
+    }
 
-                if (!Physics.Raycast(transform.position, direcaoAlvo, distanciaAlvo, layerMaskObstaculo))
+    void FOVCheck()
+    {
+        // Se o player estiver escondido, nunca está à vista
+        if (GerenciadorEstadoJogador.Instancia.EstaEscondido())
+        {
+            playerInSight = false;
+            return;
+        }
+
+        playerInSight = false;
+
+        Collider[] players = Physics.OverlapSphere(eyePosition.position, viewRadius, playerLayer);
+
+        foreach (var target in players)
+        {
+            playerTransform = target.transform;
+
+            // ← Zera Z ANTES de normalizar, senão o vetor deixa de ser unitário
+            Vector3 directionToPlayer = playerTransform.position - eyePosition.position;
+            directionToPlayer.z = 0;
+            directionToPlayer.Normalize();
+
+            Vector3 fwd = eyePosition.right;
+            float angle = Vector3.Angle(fwd, directionToPlayer);
+
+            if (angle < viewAngle / 2f)
+            {
+                float distToPlayer = Vector3.Distance(eyePosition.position, playerTransform.position);
+
+                if (!Physics.Raycast(eyePosition.position, directionToPlayer, distToPlayer, obstacleLayer))
                 {
-                    alvosVisiveis.Add(Alvo);
-                    return true;
+                    playerInSight = true;
                 }
             }
         }
-        return false;
     }
-    
-     private IEnumerator FOVRoutine()
-     {
-         float delay = 0.2f;
-         WaitForSeconds wait = new WaitForSeconds(delay);
 
-         while (true)
-         {
-             yield return wait;
-             AcharAlvosVisiveis();
-         }
-     }
+    // Gizmos só compilam no Editor — protegido corretamente
+#if UNITY_EDITOR
+    private void OnDrawGizmosSelected()
+    {
+        if (eyePosition == null)
+            eyePosition = this.transform;
 
-    public Vector3 DirecaoDoAngulo(float AnguloEmGraus, bool AnguloEGlobal)
-    {   
-        
-        if (!AnguloEGlobal)
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(eyePosition.position, viewRadius);
+
+        Vector3 fwd = eyePosition.right;
+        Vector3 angleA = Quaternion.Euler(0, 0, -viewAngle / 2) * fwd;
+        Vector3 angleB = Quaternion.Euler(0, 0,  viewAngle / 2) * fwd;
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(eyePosition.position, eyePosition.position + angleA * viewRadius);
+        Gizmos.DrawLine(eyePosition.position, eyePosition.position + angleB * viewRadius);
+
+        if (playerInSight && playerTransform != null)
         {
-            AnguloEmGraus += transform.eulerAngles.z;
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(eyePosition.position, playerTransform.position);
         }
-
-        return new Vector3(-Mathf.Cos(AnguloEmGraus * Mathf.Deg2Rad), -Mathf.Sin(AnguloEmGraus * Mathf.Deg2Rad), 0);
     }
+#endif
 }
