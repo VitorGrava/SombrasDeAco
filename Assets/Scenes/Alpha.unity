@@ -1409,6 +1409,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8c1db20fc72072b48994833f342abfbf, type: 3}
       insertIndex: -1
       addedObject: {fileID: 998874414}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8c1db20fc72072b48994833f342abfbf, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 998874422}
   m_SourcePrefab: {fileID: 100100000, guid: 8c1db20fc72072b48994833f342abfbf, type: 3}
 --- !u!1001 &926123007
 PrefabInstance:
@@ -1885,11 +1888,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7d65b4e1092b8c4287faedc8d885ea1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocidadeAndando: 3
-  velocidadeAgachando: 1
-  velocidadeCorrendo: 8
-  velocidadeRotacao: 20
-  forcaPulo: 5
+--- !u!114 &998874422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 998874411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f17a89cd1b6017540a2289877d6bdf25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  velocidadeAndando: 0
+  velocidadeAgachando: 0
+  velocidadeCorrendo: 0
+  velocidadeRotacao: 0
+  forcaPulo: 0
   noChao: 0
   coyoteTime: 0.15
   jumpBufferTime: 0.15
@@ -2276,6 +2291,67 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1286575056}
   m_CullTransparentMesh: 1
+--- !u!1001 &1290888918
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7047184286768507357, guid: 010b4186c040461488035eecbc3511d1, type: 3}
+      propertyPath: m_Name
+      value: tank sem shade smooth (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7676227690264621927, guid: 010b4186c040461488035eecbc3511d1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 99.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 7676227690264621927, guid: 010b4186c040461488035eecbc3511d1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.52367
+      objectReference: {fileID: 0}
+    - target: {fileID: 7676227690264621927, guid: 010b4186c040461488035eecbc3511d1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -13.84
+      objectReference: {fileID: 0}
+    - target: {fileID: 7676227690264621927, guid: 010b4186c040461488035eecbc3511d1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7676227690264621927, guid: 010b4186c040461488035eecbc3511d1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7676227690264621927, guid: 010b4186c040461488035eecbc3511d1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7676227690264621927, guid: 010b4186c040461488035eecbc3511d1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7676227690264621927, guid: 010b4186c040461488035eecbc3511d1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7676227690264621927, guid: 010b4186c040461488035eecbc3511d1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 7676227690264621927, guid: 010b4186c040461488035eecbc3511d1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: -3168569702430896778, guid: 010b4186c040461488035eecbc3511d1, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7047184286768507357, guid: 010b4186c040461488035eecbc3511d1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1887505656}
+  m_SourcePrefab: {fileID: 100100000, guid: 010b4186c040461488035eecbc3511d1, type: 3}
 --- !u!1 &1349614966
 GameObject:
   m_ObjectHideFlags: 0
@@ -3596,6 +3672,36 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.0042846245, y: 0.004625948, z: 0.019981671}
   m_Center: {x: 0.000016608845, y: -0.000088767745, z: 0.000004092411}
+--- !u!1 &1887505655 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7047184286768507357, guid: 010b4186c040461488035eecbc3511d1, type: 3}
+  m_PrefabInstance: {fileID: 1290888918}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1887505656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1887505655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee2ce1f643c646641b1b874ca88a94d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Tank_movimentacao
+  eixoMovimento: 0
+  girarAoInverterDirecao: 1
+  velocidadePatrulha: 3
+  distanciaPatrulha: 15
+  velocidadeRotacao: 5
+  suavizacaoMovimento: 0.5
+  perseguirPlayer: 0
+  velocidadeSeguir: 5
+  campoDeVisao: {fileID: 0}
+  balaPrefab: {fileID: 0}
+  pontoDisparo: {fileID: 0}
+  intervaloEntreTiros: 1.5
+  player: {fileID: 0}
 --- !u!1 &1934209047
 GameObject:
   m_ObjectHideFlags: 0
@@ -4419,5 +4525,6 @@ SceneRoots:
   - {fileID: 1484252162}
   - {fileID: 230261705}
   - {fileID: 2009979594}
+  - {fileID: 1290888918}
   - {fileID: 926123007}
   - {fileID: 750425302}
