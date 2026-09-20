@@ -30,7 +30,7 @@ public class Tank_movimentacao : MonoBehaviour
     // ============================================================
     [Header("Detecção")]
     [Tooltip("Arraste aqui o objeto filho que tem o componente CampoDeVisao. Se deixar vazio, o script procura sozinho nos filhos.")]
-    public CampoDeVisao campoDeVisao;
+    public CampovisaoTank campovisaoTank;
 
     // ============================================================
     //  TIRO
@@ -69,8 +69,8 @@ public class Tank_movimentacao : MonoBehaviour
 
         // Se não foi arrastado manualmente no Inspector, tenta achar nos filhos.
         // Isso evita o NullReferenceException que travava o jogo antes.
-        if (campoDeVisao == null)
-            campoDeVisao = GetComponentInChildren<CampoDeVisao>();
+        if (campovisaoTank == null)
+            campovisaoTank = GetComponentInChildren<CampovisaoTank>();
 
         ConfigurarRigidbody();
         EncontrarPlayer();
@@ -107,7 +107,7 @@ public class Tank_movimentacao : MonoBehaviour
         // playerAvistado só é true se o campoDeVisao existir E detectar o player.
         // Assim, mesmo que o CampoDeVisao não esteja configurado, o boss
         // continua patrulhando em vez de travar o jogo.
-        bool playerAvistado = campoDeVisao != null && campoDeVisao.playerInSight;
+        bool playerAvistado = campovisaoTank != null && campovisaoTank.playerInSight;
 
         if (playerAvistado)
         {
@@ -231,17 +231,37 @@ public class Tank_movimentacao : MonoBehaviour
     // ============================================================
     //  TIRO
     // ============================================================
+
     private void TentarAtirar()
     {
-        if (balaPrefab == null || pontoDisparo == null) return;
-        if (Time.time - tempoUltimoTiro < intervaloEntreTiros) return;
+        // --- VERIFICAÇÕES (mostra o motivo se o tiro não sair) ---
+        if (balaPrefab == null)
+        {
+            Debug.LogWarning("[TIRO] Falta o balaPrefab no Inspector", this);
+            return;
+        }
+        if (pontoDisparo == null)
+        {
+            Debug.LogWarning("[TIRO] Falta o pontoDisparo no Inspector", this);
+            return;
+        }
+        if (Time.time - tempoUltimoTiro < intervaloEntreTiros) return; // sem log, senão enche o Console
 
         tempoUltimoTiro = Time.time;
 
+        // --- DISPARO ---
         GameObject b = Instantiate(balaPrefab, pontoDisparo.position, pontoDisparo.rotation);
+        Debug.Log("[TIRO] Bala criada em " + pontoDisparo.position + " | direção: " + pontoDisparo.forward, b);
 
         Bala bala = b.GetComponent<Bala>();
         if (bala != null)
+        {
             bala.Atirar();
+            Debug.Log("[TIRO] bala.Atirar() chamado com sucesso");
+        }
+        else
+        {
+            Debug.LogWarning("[TIRO] O prefab da bala NÃO tem o script Bala", b);
+        }
     }
 }
