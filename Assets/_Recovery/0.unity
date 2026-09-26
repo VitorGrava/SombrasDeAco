@@ -1076,82 +1076,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 637871034}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &705877252
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 705877256}
-  - component: {fileID: 705877254}
-  - component: {fileID: 705877253}
-  m_Layer: 0
-  m_Name: boss_triguer
-  m_TagString: Untagged
-  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &705877253
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 705877252}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2c2ba9bf1505aa0da4db70d5a994047, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TankSpawnTrigger
-  tankPrefab: {fileID: 5043023386194932715, guid: 0b35fdb7599c817a59c85224ceec64f8, type: 3}
-  tankNaCena: {fileID: 0}
-  direcaoDoAvanco: {x: 1, y: 0, z: 0}
-  distanciaMinima: 15
-  margemForaDaCamera: 0.15
-  camadaChao:
-    serializedVersion: 2
-    m_Bits: 0
-  offsetY: 0.5
-  tagPlayer: Player
---- !u!65 &705877254
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 705877252}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 2, y: 10, z: 10}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!4 &705877256
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 705877252}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 116.71, y: 4.47, z: -15.15}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &750425300
 GameObject:
   m_ObjectHideFlags: 0
@@ -1200,7 +1124,7 @@ Transform:
   m_GameObject: {fileID: 750425300}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 159.8, y: 0.244, z: -11.661}
+  m_LocalPosition: {x: 109.962, y: 0.244, z: -11.661}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1413,7 +1337,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 8c1db20fc72072b48994833f342abfbf, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 101.86
+      value: 18.1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8c1db20fc72072b48994833f342abfbf, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1456,10 +1380,6 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 8c1db20fc72072b48994833f342abfbf, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 8c1db20fc72072b48994833f342abfbf, type: 3}
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
@@ -1489,6 +1409,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8c1db20fc72072b48994833f342abfbf, type: 3}
       insertIndex: -1
       addedObject: {fileID: 998874414}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8c1db20fc72072b48994833f342abfbf, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 998874422}
   m_SourcePrefab: {fileID: 100100000, guid: 8c1db20fc72072b48994833f342abfbf, type: 3}
 --- !u!1001 &926123007
 PrefabInstance:
@@ -1541,26 +1464,6 @@ PrefabInstance:
     - target: {fileID: -6722085885383957590, guid: 61df69f5e3567f8419d74ede32ece303, type: 3}
       propertyPath: m_Intensity
       value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: -6170078516433042476, guid: 61df69f5e3567f8419d74ede32ece303, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -6170078516433042476, guid: 61df69f5e3567f8419d74ede32ece303, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.37
-      objectReference: {fileID: 0}
-    - target: {fileID: -6170078516433042476, guid: 61df69f5e3567f8419d74ede32ece303, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 81.5
-      objectReference: {fileID: 0}
-    - target: {fileID: -1062951273117201401, guid: 61df69f5e3567f8419d74ede32ece303, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.55
-      objectReference: {fileID: 0}
-    - target: {fileID: -1062951273117201401, guid: 61df69f5e3567f8419d74ede32ece303, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 127.32
       objectReference: {fileID: 0}
     - target: {fileID: -678217682645198054, guid: 61df69f5e3567f8419d74ede32ece303, type: 3}
       propertyPath: m_Intensity
@@ -1985,11 +1888,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7d65b4e1092b8c4287faedc8d885ea1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocidadeAndando: 3
-  velocidadeAgachando: 1
-  velocidadeCorrendo: 8
-  velocidadeRotacao: 20
-  forcaPulo: 5
+  velocidadeAndando: 0
+  velocidadeAgachando: 0
+  velocidadeCorrendo: 0
+  velocidadeRotacao: 0
+  forcaPulo: 0
+  noChao: 0
+  coyoteTime: 0.15
+  jumpBufferTime: 0.15
+  gravityMultiplier: 2.5
+  lowJumpMultiplier: 2
+  controleStamina: {fileID: 0}
+--- !u!114 &998874422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 998874411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f17a89cd1b6017540a2289877d6bdf25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  velocidadeAndando: 5
+  velocidadeAgachando: 2
+  velocidadeCorrendo: 7
+  velocidadeRotacao: 5
+  forcaPulo: 3
   noChao: 0
   coyoteTime: 0.15
   jumpBufferTime: 0.15
@@ -2376,6 +2302,67 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1286575056}
   m_CullTransparentMesh: 1
+--- !u!1001 &1290888918
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7047184286768507357, guid: 010b4186c040461488035eecbc3511d1, type: 3}
+      propertyPath: m_Name
+      value: tank sem shade smooth (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7676227690264621927, guid: 010b4186c040461488035eecbc3511d1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 99.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 7676227690264621927, guid: 010b4186c040461488035eecbc3511d1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.52367
+      objectReference: {fileID: 0}
+    - target: {fileID: 7676227690264621927, guid: 010b4186c040461488035eecbc3511d1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -13.84
+      objectReference: {fileID: 0}
+    - target: {fileID: 7676227690264621927, guid: 010b4186c040461488035eecbc3511d1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7676227690264621927, guid: 010b4186c040461488035eecbc3511d1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7676227690264621927, guid: 010b4186c040461488035eecbc3511d1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7676227690264621927, guid: 010b4186c040461488035eecbc3511d1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7676227690264621927, guid: 010b4186c040461488035eecbc3511d1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7676227690264621927, guid: 010b4186c040461488035eecbc3511d1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 7676227690264621927, guid: 010b4186c040461488035eecbc3511d1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: -3168569702430896778, guid: 010b4186c040461488035eecbc3511d1, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7047184286768507357, guid: 010b4186c040461488035eecbc3511d1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1887505656}
+  m_SourcePrefab: {fileID: 100100000, guid: 010b4186c040461488035eecbc3511d1, type: 3}
 --- !u!1 &1349614966
 GameObject:
   m_ObjectHideFlags: 0
@@ -3211,7 +3198,7 @@ Transform:
   m_GameObject: {fileID: 1519612483}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 169.83, y: 1.31, z: -12}
+  m_LocalPosition: {x: 156.63, y: 1.31, z: -12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3696,6 +3683,23 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.0042846245, y: 0.004625948, z: 0.019981671}
   m_Center: {x: 0.000016608845, y: -0.000088767745, z: 0.000004092411}
+--- !u!1 &1887505655 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7047184286768507357, guid: 010b4186c040461488035eecbc3511d1, type: 3}
+  m_PrefabInstance: {fileID: 1290888918}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1887505656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1887505655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee2ce1f643c646641b1b874ca88a94d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Tank_movimentacao
 --- !u!1 &1934209047
 GameObject:
   m_ObjectHideFlags: 0
@@ -4519,6 +4523,6 @@ SceneRoots:
   - {fileID: 1484252162}
   - {fileID: 230261705}
   - {fileID: 2009979594}
+  - {fileID: 1290888918}
   - {fileID: 926123007}
   - {fileID: 750425302}
-  - {fileID: 705877256}
