@@ -62,13 +62,13 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!GerenciadorEstadoJogador.Instancia.EstaEscondido())
-        {
-            MovimentacaoPlayer();
-            AtualizarEstadoMovimento();
-            Pulo();
-            AplicarGravidade();
-        }
+        if (GerenciadorEstadoJogador.Instancia != null && GerenciadorEstadoJogador.Instancia.EstaEscondido())
+            return;
+
+        MovimentacaoPlayer();
+        AtualizarEstadoMovimento();
+        Pulo();
+        AplicarGravidade();
     }
 
     void MovimentacaoPlayer()
@@ -80,35 +80,39 @@ public class PlayerController : MonoBehaviour
         {
             case EstadoMovimento.Andando:
                 rb.MovePosition(rb.position + posicaoAtual * velocidadeAndando * Time.fixedDeltaTime);
-                animator.SetBool("IsCrouching", false);
-                controleStamina.estaCorrendo = false;
+                if (animator != null) animator.SetBool("IsCrouching", false);
+                if (controleStamina != null) controleStamina.estaCorrendo = false;
                 break;
 
             case EstadoMovimento.Agachando:
                 rb.MovePosition(rb.position + posicaoAtual * velocidadeAgachando * Time.fixedDeltaTime);
-                animator.SetBool("IsCrouching", true);
+                if (animator != null) animator.SetBool("IsCrouching", true);
+                if (controleStamina != null) controleStamina.estaCorrendo = false;
                 break;
 
             case EstadoMovimento.Correndo:
                 rb.MovePosition(rb.position + posicaoAtual * velocidadeCorrendo * Time.fixedDeltaTime);
-                animator.SetBool("IsCrouching", false);
+                if (animator != null) animator.SetBool("IsCrouching", false);
 
                 // Só consome stamina se estiver se movendo
                 if (moveX != 0)
                 {
-                    controleStamina.estaCorrendo = true;
-                    controleStamina.Correndo();
+                    if (controleStamina != null)
+                    {
+                        controleStamina.estaCorrendo = true;
+                        controleStamina.Correndo();
+                    }
                 }
                 else
                 {
-                    controleStamina.estaCorrendo = false;
+                    if (controleStamina != null) controleStamina.estaCorrendo = false;
                 }
                 break;
         }
 
 
         Rotacao(moveX);
-        animator.SetBool("IsMoving", moveX != 0);
+        if (animator != null) animator.SetBool("IsMoving", moveX != 0);
 
     }
 
@@ -116,7 +120,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
         {
-            estadoAtual = controleStamina.stamina > 0
+            estadoAtual = (controleStamina != null && controleStamina.stamina > 0)
                 ? EstadoMovimento.Correndo
                 : EstadoMovimento.Andando;
             return;
