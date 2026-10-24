@@ -1,0 +1,160 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &7858158014908339340
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 8d2486d527f2f424981faf3c3e3956ca, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.16916
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8d2486d527f2f424981faf3c3e3956ca, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.16916
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8d2486d527f2f424981faf3c3e3956ca, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.16916
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8d2486d527f2f424981faf3c3e3956ca, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 28.02
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8d2486d527f2f424981faf3c3e3956ca, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.48
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8d2486d527f2f424981faf3c3e3956ca, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -14.3
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8d2486d527f2f424981faf3c3e3956ca, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8d2486d527f2f424981faf3c3e3956ca, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8d2486d527f2f424981faf3c3e3956ca, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8d2486d527f2f424981faf3c3e3956ca, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8d2486d527f2f424981faf3c3e3956ca, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8d2486d527f2f424981faf3c3e3956ca, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8d2486d527f2f424981faf3c3e3956ca, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8d2486d527f2f424981faf3c3e3956ca, type: 3}
+      propertyPath: m_Name
+      value: tank sem shade smooth (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects:
+    - {fileID: 65702495048144492, guid: 8d2486d527f2f424981faf3c3e3956ca, type: 3}
+    - {fileID: -8700617353114198275, guid: 8d2486d527f2f424981faf3c3e3956ca, type: 3}
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8d2486d527f2f424981faf3c3e3956ca, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6829740558947610281}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8d2486d527f2f424981faf3c3e3956ca, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8602396707924976029}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8d2486d527f2f424981faf3c3e3956ca, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -3168569702430896778}
+  m_SourcePrefab: {fileID: 100100000, guid: 8d2486d527f2f424981faf3c3e3956ca, type: 3}
+--- !u!1 &7047184286768507357 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 8d2486d527f2f424981faf3c3e3956ca, type: 3}
+  m_PrefabInstance: {fileID: 7858158014908339340}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &6829740558947610281
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7047184286768507357}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &8602396707924976029
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7047184286768507357}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.6950858, y: 0.399308, z: 0.7077404}
+  m_Center: {x: 0.15245707, y: -0.30034584, z: -0.14612979}
+--- !u!114 &-3168569702430896778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7047184286768507357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8617442eb8fc7b4ab176eca31d0f957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Tank_movimentacao
+  eixoMovimento: 0
+  girarAoInverterDirecao: 1
+  velocidadePatrulha: 3
+  distanciaPatrulha: 15
+  velocidadeRotacao: 5
+  suavizacaoMovimento: 0.5
+  perseguirPlayer: 0
+  velocidadeSeguir: 5
+  campoDeVisao: {fileID: 0}
+  balaPrefab: {fileID: 0}
+  pontoDisparo: {fileID: 0}
+  intervaloEntreTiros: 1.5
+  player: {fileID: 0}
