@@ -32,6 +32,7 @@ public class MovimentoInimigo : MonoBehaviour
     private float velocidadeRefX = 0f;
 
 
+    private bool estavaSeguindo;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -66,20 +67,36 @@ public class MovimentoInimigo : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (GerenciadorEstadoJogador.Instancia.EstaEscondido())
-        {
-            MovimentarPatrulha();
-        }
-        else if (campoDeVisao.playerInSight)
-        {
-            SeguirPlayer();
-        }
-        else
-        {
-            MovimentarPatrulha();
-        }
+        bool deveSeguir = !GerenciadorEstadoJogador.Instancia.EstaEscondido()
+                          && campoDeVisao.playerInSight;
 
+        if (deveSeguir)
+            SeguirPlayer();
+        else
+            MovimentarPatrulha();
+
+        AtualizarMusica(deveSeguir);
         AtualizarRotacao();
+    }
+
+    private void AtualizarMusica(bool seguindo)
+    {
+        if (seguindo == estavaSeguindo) return; // só age quando o estado muda
+        estavaSeguindo = seguindo;
+
+        if (MusicaPerseguicao.Instancia == null) return;
+
+        if (seguindo) MusicaPerseguicao.Instancia.RegistrarPerseguicao(this);
+        else MusicaPerseguicao.Instancia.RemoverPerseguicao(this);
+    }
+
+    void OnDisable()
+    {
+        // Se o inimigo morrer/for desativado no meio da perseguição, libera a música
+        if (estavaSeguindo && MusicaPerseguicao.Instancia != null)
+            MusicaPerseguicao.Instancia.RemoverPerseguicao(this);
+
+        estavaSeguindo = false;
     }
 
     // ============================================================

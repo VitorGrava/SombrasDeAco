@@ -39,8 +39,24 @@ public class SniperController : MonoBehaviour
     public Transform pontoDisparo;    // Origem do tiro (adicione um empty no sniper)
     public float intervaloEntreTiros = 1.5f;
     private float tempoUltimoTiro = 0f;
+
+
+    [Header("SOM DO TIRO")]
+    public AudioClip somTiro;
+    [Range(0f, 1f)] public float volumeTiro = 1f;
+    private AudioSource audioSource;
+
+
     void Start()
-    {        
+    {
+
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+            audioSource = gameObject.AddComponent<AudioSource>();
+
+        audioSource.playOnAwake = false;
+        audioSource.spatialBlend = 0f;
+
         campoDeVisao = GetComponentInChildren<CampoDeVisao>();
         rb = GetComponent<Rigidbody>();
         rotacaoOriginalFOV = campoDeVisaoObjeto.localRotation;
@@ -136,6 +152,11 @@ public class SniperController : MonoBehaviour
 
         // Criar bala
         GameObject b = Instantiate(balaPrefab, pontoDisparo.position, pontoDisparo.rotation);
+
+        if (somTiro != null)
+            audioSource.PlayOneShot(somTiro, volumeTiro);
+
+       
 
         // Chamar o método Atirar da bala
         Bala bala = b.GetComponent<Bala>();
