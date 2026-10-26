@@ -6,17 +6,24 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Main.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/Cenas/Menus/Main.unity
+    guid: 2a018881c82d6884d848c9c1f6ec2930
   - enabled: 1
-    path: Assets/Scenes/Alpha.unity
-    guid: dab301ae3008e03449dad82aa3c422be
+    path: Assets/Cenas/Fases/Fase 1.unity
+    guid: 70aa3bda06194158cb4ea32ecaa9e7ac
   - enabled: 1
-    path: Assets/Scenes/Perdeu.unity
+    path: Assets/Cenas/Fases/Fase 2.unity
+    guid: 87cf4537bc1696bee8eef38138db223f
+  - enabled: 1
+    path: Assets/Cenas/Menus/Perdeu.unity
     guid: b2e79ac17043a664e877eccedf657eae
   - enabled: 1
-    path: Assets/Scenes/Ganhou.unity
+    path: Assets/Cenas/Menus/Ganhou.unity
     guid: f4b073fb7e653e446b73f26bfeaf78d6
+  - enabled: 0
+    path: Assets/Cenas/Antigas/Alpha.unity
+    guid: dab301ae3008e03449dad82aa3c422be
   m_configObjects:
+    com.unity.dt.app-ui: {fileID: 11400000, guid: 1b1c20d82303e4b5781c3ef50ac1449f, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
